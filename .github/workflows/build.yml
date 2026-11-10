@@ -1,0 +1,34 @@
+name: Build VisibleIsland (Roothide)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Fork
+      uses: actions/checkout@v4
+
+    - name: Install Roothide Theos & iOS SDKs
+      run: |
+        brew install ldid xz dpkg
+        git clone --recursive https://github.com/roothide/theos.git $HOME/theos
+        curl -sL https://github.com/theos/sdks/archive/master.tar.gz | tar -xzf - -C $HOME/theos/sdks --strip-components=1
+
+    - name: Compile Roothide .deb Package
+      env:
+        THEOS: /Users/runner/theos
+      run: |
+        rm -rf packages/*
+        make clean
+        make package FINALPACKAGE=1
+
+    - name: Upload Compiled .deb Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: VisibleIsland-Roothide-deb
+        path: packages/*.deb
