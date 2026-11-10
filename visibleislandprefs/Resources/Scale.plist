@@ -4,13 +4,14 @@
   <dict>
     <key>items</key>
     <array>
+      <!-- Base / Idle Scale -->
       <dict>
         <key>cell</key>
         <string>PSGroupCell</string>
         <key>label</key>
-        <string>Custom Island Scale</string>
+        <string>Idle Island Width &amp; Height Scale</string>
         <key>footerText</key>
-        <string>If you choose to use a custom scale, setting a custom position is recommended for best results.</string>
+        <string>Independently control the width (X) and height (Y) scale of the idle Dynamic Island. For iPhone 12 mini behind the notch, 1.15 with YPos -23 is ideal.</string>
       </dict>
       <dict>
         <key>cell</key>
@@ -30,13 +31,13 @@
         <key>cell</key>
         <string>PSEditTextCell</string>
         <key>label</key>
-        <string>Scale:</string>
+        <string>Width Scale (X):</string>
         <key>prompt</key>
-        <string>Enter Scale</string>
+        <string>Enter Width Scale</string>
         <key>bestGuess</key>
-        <string>1.0</string>
+        <string>1.15</string>
         <key>placeholder</key>
-        <string>1.0</string>
+        <string>1.15</string>
         <key>isNumeric</key>
         <false/>
         <key>PostNotification</key>
@@ -47,17 +48,221 @@
         <string>scale</string>
       </dict>
       <dict>
+        <key>cell</key>
+        <string>PSEditTextCell</string>
+        <key>label</key>
+        <string>Height Scale (Y):</string>
+        <key>prompt</key>
+        <string>Enter Height Scale</string>
+        <key>bestGuess</key>
+        <string>1.15</string>
+        <key>placeholder</key>
+        <string>1.15</string>
+        <key>isNumeric</key>
+        <false/>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>scaleY</string>
+      </dict>
+
+      <!-- Expanded Island Notch Avoidance -->
+      <dict>
+        <key>cell</key>
+        <string>PSGroupCell</string>
+        <key>label</key>
+        <string>Expanded Island Notch Fix</string>
+        <key>footerText</key>
+        <string>Automatically shifts the Dynamic Island down below the notch when expanded so it never overlaps the physical cutout.</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSSwitchCell</string>
+        <key>default</key>
+        <true/>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>expandedFixEnabled</string>
+        <key>label</key>
+        <string>Respect Notch When Expanded</string>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSEditTextCell</string>
+        <key>label</key>
+        <string>Expanded Y Offset:</string>
+        <key>prompt</key>
+        <string>Enter Expanded Y Offset</string>
+        <key>bestGuess</key>
+        <string>20.0</string>
+        <key>placeholder</key>
+        <string>20.0</string>
+        <key>isNumeric</key>
+        <false/>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>expandedYPos</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSEditTextCell</string>
+        <key>label</key>
+        <string>Expanded Scale:</string>
+        <key>prompt</key>
+        <string>Enter Expanded Scale</string>
+        <key>bestGuess</key>
+        <string>0.95</string>
+        <key>placeholder</key>
+        <string>0.95</string>
+        <key>isNumeric</key>
+        <false/>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>expandedScale</string>
+      </dict>
+
+      <!-- Compact Notch-Ear Mode -->
+      <dict>
+        <key>cell</key>
+        <string>PSGroupCell</string>
+        <key>label</key>
+        <string>Notch Ears Compact Mode (12 mini)</string>
+        <key>footerText</key>
+        <string>Widens active compact previews into the left and right notch ears without stretching icons, and hides the status bar while active.</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSSwitchCell</string>
+        <key>default</key>
+        <true/>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>earModeEnabled</string>
+        <key>label</key>
+        <string>Fit Previews in Notch Ears</string>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSSwitchCell</string>
+        <key>default</key>
+        <true/>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>hideStatusBarInEarMode</string>
+        <key>label</key>
+        <string>Auto-Hide Status Bar in Ears</string>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSEditTextCell</string>
+        <key>label</key>
+        <string>Compact Width Scale:</string>
+        <key>prompt</key>
+        <string>Enter Compact Width Scale</string>
+        <key>bestGuess</key>
+        <string>1.55</string>
+        <key>placeholder</key>
+        <string>1.55</string>
+        <key>isNumeric</key>
+        <false/>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>compactScaleX</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSEditTextCell</string>
+        <key>label</key>
+        <string>Compact Height Scale:</string>
+        <key>prompt</key>
+        <string>Enter Compact Height Scale</string>
+        <key>bestGuess</key>
+        <string>1.05</string>
+        <key>placeholder</key>
+        <string>1.05</string>
+        <key>isNumeric</key>
+        <false/>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>compactScaleY</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSEditTextCell</string>
+        <key>label</key>
+        <string>Compact Y Offset:</string>
+        <key>prompt</key>
+        <string>Enter Compact Y Offset</string>
+        <key>bestGuess</key>
+        <string>-23.0</string>
+        <key>placeholder</key>
+        <string>-23.0</string>
+        <key>isNumeric</key>
+        <false/>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>compactYPos</string>
+      </dict>
+      <dict>
+        <key>cell</key>
+        <string>PSEditTextCell</string>
+        <key>label</key>
+        <string>Ear Icon Spread (pt):</string>
+        <key>prompt</key>
+        <string>Enter Icon Spread</string>
+        <key>bestGuess</key>
+        <string>22.0</string>
+        <key>placeholder</key>
+        <string>22.0</string>
+        <key>isNumeric</key>
+        <false/>
+        <key>PostNotification</key>
+        <string>com.ethxnn88.visibleislandprefs-updated</string>
+        <key>defaults</key>
+        <string>com.ethxnn88.visibleislandprefs</string>
+        <key>key</key>
+        <string>earSpreadOffset</string>
+      </dict>
+
+      <!-- Save Button (Applies Live!) -->
+      <dict>
         <key>action</key>
         <string>savePos</string>
         <key>cell</key>
         <string>PSButtonCell</string>
         <key>label</key>
-        <string>Save</string>
+        <string>Save (Applies Live)</string>
         <key>defaults</key>
         <string>com.ethxnn88.visibleislandprefs</string>
       </dict>
     </array>
     <key>title</key>
-    <string>Scale</string>
+    <string>Scale &amp; Notch</string>
   </dict>
 </plist>
