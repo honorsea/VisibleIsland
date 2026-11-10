@@ -13,19 +13,26 @@ jobs:
     - name: Checkout Fork
       uses: actions/checkout@v4
 
-    - name: Install Roothide Theos & iOS SDKs
+    - name: Install Roothide Theos & Patched iOS 16.5 SDK
       run: |
         brew install ldid xz dpkg
         git clone --recursive https://github.com/roothide/theos.git $HOME/theos
-        curl -sL https://github.com/theos/sdks/archive/master.tar.gz | tar -xzf - -C $HOME/theos/sdks --strip-components=1
+        mkdir -p $HOME/theos/sdks
+        curl -sL https://github.com/theos/sdks/releases/latest/download/iPhoneOS16.5.sdk.tar.xz | tar -xJf - -C $HOME/theos/sdks
 
     - name: Compile Roothide .deb Package
       env:
         THEOS: /Users/runner/theos
       run: |
         rm -rf packages/*
+        sed -i '' 's/TARGET := .*/TARGET := iphone:clang:16.5:15.0/g' Makefile
+        if grep -q "TARGET" visibleislandprefs/Makefile; then
+          sed -i '' 's/TARGET := .*/TARGET := iphone:clang:16.5:15.0/g' visibleislandprefs/Makefile
+        else
+           sed -i '' '1s/^/TARGET := iphone:clang:16.5:15.0\n/' visibleislandprefs/Makefile
+        fi
         make clean
-        make package FINALPACKAGE=1
+        make package FINALPACKAGE=1 TARGET="iphone:clang:16.5:15.0"
 
     - name: Upload Compiled .deb Artifact
       uses: actions/upload-artifact@v4
