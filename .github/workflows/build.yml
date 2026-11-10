@@ -29,10 +29,10 @@ jobs:
         if grep -q "TARGET" visibleislandprefs/Makefile; then
           sed -i '' 's/TARGET := .*/TARGET := iphone:clang:16.5:15.0/g' visibleislandprefs/Makefile
         else
-           sed -i '' '1s/^/TARGET := iphone:clang:16.5:15.0\n/' visibleislandprefs/Makefile
+          sed -i '' '1s/^/TARGET := iphone:clang:16.5:15.0\n/' visibleislandprefs/Makefile
         fi
         make clean
-        make package FINALPACKAGE=1 TARGET="iphone:clang:16.5:15.0"
+        make package FINALPACKAGE=1 TARGET="iphone:clang:16.5:15.0" ADDITIONAL_CFLAGS="-Wno-deprecated-declarations -Wno-error"
 
     - name: Upload Compiled .deb Artifact
       uses: actions/upload-artifact@v4
